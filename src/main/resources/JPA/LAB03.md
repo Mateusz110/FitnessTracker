@@ -18,24 +18,21 @@ przez które aplikacja **czyta i zapisuje** dane. Plan zajęć (1.5h):
 1. Zsynchronizuj swój projekt z projektem prowadzącego (Sync Fork / Pull).
 2. Zweryfikuj, że projekt buduje się lokalnie (`mvn clean install`) i na GitHubie
    (zakładka Actions). Pipeline powinien być zielony.
-3. Nadpisz workflow i dociągnij nowe testy:
+3. Nadpisz workflow i dociągnij nowy test:
     - **Nadpisz** `.github/workflows/github-ci-cd.yml` wersją z
-      `src/main/resources/JPA/LAB02/github-ci-cd.yml`. Nowy workflow ma **trzy
-      stage'e testowe** odpowiadające laboratoriom (sekwencyjne `needs:`):
+      `src/main/resources/JPA/LAB03/github-ci-cd.yml`. Nowy workflow ma **dwa
+      niezależne stage'e testowe** odpowiadające laboratoriom:
         - `lab02` — `DatabaseSchemaTest` (encje z LAB02),
-        - `lab03-entities` — `Lab03EntitiesTest` (STAGE 1, encje LAB03),
-        - `lab03-repository` — `Lab03RepositoryTest` (STAGE 2, zapytania LAB03).
+        - `lab03-entities` — `Lab03EntitiesTest` (STAGE 1, encje LAB03).
 
-      Dzięki temu na GitHubie widzisz dokładnie, na którym etapie jesteś,
-      a pipeline uruchamia się **na wszystkich branchach**.
-    - **Przekopiuj** oba pliki testowe z `src/main/resources/JPA/LAB03/` do
-      `src/test/java/pl/wsb/fitnesstracker/`:
-        - `Lab03EntitiesTest.java` — STAGE 1 (sprawdza nowe tabele).
-        - `Lab03RepositoryTest.java` — STAGE 2 (sprawdza Twoje `@Query`).
-
-      Po skopiowaniu `Lab03RepositoryTest` projekt **nie będzie się kompilował** —
-      to stan oczekiwany. Brakuje klas `Event`, `EventRepository`, `UserEvent`,
-      `UserEventRepository`. Kolejne sekcje pokazują, jak je zrobić.
+      Stage'e są niezależne — niepowodzenie jednego **nie przerywa** pozostałych,
+      więc na GitHubie widzisz pełny obraz, które laboratorium już jest zielone,
+      a które jeszcze wymaga pracy. Pipeline uruchamia się **na wszystkich branchach**.
+    - **Przekopiuj** plik testowy `Lab03EntitiesTest.java` z
+      `src/main/resources/JPA/LAB03/` do `src/test/java/pl/wsb/fitnesstracker/`.
+      Ten test sprawdza, że nowe tabele (`event`, `user_event`, `workout_session`)
+      powstały po dodaniu encji z sekcji 1. Zapytania z sekcji 3 i 4 weryfikujesz
+      samodzielnie (np. wypisując wynik w `InitialDataLoader`).
 
 ---
 
